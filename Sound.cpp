@@ -14,9 +14,12 @@
 #include "Source.h"
 #include "SoundInternals.h"
 
-#include <SDL.h>
-
 #include <Util/Macros.h>
+COMPILER_WARN_PUSH
+COMPILER_WARN_OFF_CLANG(-W#warnings)
+COMPILER_WARN_OFF_GCC(-Wswitch-default)
+#include <SDL.h>
+COMPILER_WARN_POP
 #include <Util/References.h>
 
 #include <algorithm>
