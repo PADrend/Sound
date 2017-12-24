@@ -23,9 +23,8 @@ add_library(Sound
 )
 
 # Dependency to OpenAL
-find_package(OpenAL REQUIRED)
-target_include_directories(Sound PRIVATE ${OPENAL_INCLUDE_DIR})
-target_link_libraries(Sound LINK_PRIVATE ${OPENAL_LIBRARY})
+find_package(OpenAL REQUIRED NO_MODULE)
+target_link_libraries(Sound PRIVATE OpenAL::OpenAL)
 
 # Dependency to SDL2
 set(SDL2_BUILDING_LIBRARY ON)
