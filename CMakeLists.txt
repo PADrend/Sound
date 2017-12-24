@@ -70,6 +70,9 @@ target_include_directories(Sound
                            "$<INSTALL_INTERFACE:$<INSTALL_PREFIX>/${CMAKE_INSTALL_INCLUDEDIR}>")
 
 # Library export
+#   to use from the build tree
+export(EXPORT LibraryExport FILE SoundTargets.cmake)
+#   to use from installation tree
 install(EXPORT LibraryExport DESTINATION ${CMAKE_INSTALL_CMAKECONFIGDIR} FILE SoundTargets.cmake COMPONENT developmentlibraries)
 
 # Create the configuration files
