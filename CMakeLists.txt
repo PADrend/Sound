@@ -39,7 +39,7 @@ endif()
 if(NOT TARGET Util)
 	find_package(Util 0.2.0 REQUIRED NO_MODULE)
 endif()
-target_link_libraries(Sound LINK_PUBLIC Util)
+target_link_libraries(Sound PUBLIC Util)
 
 # Set version of library
 set_target_properties(Sound PROPERTIES VERSION ${Sound_VERSION}
