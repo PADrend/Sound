@@ -7,12 +7,7 @@
 # file LICENSE. If not, you can obtain one at http://mozilla.org/MPL/2.0/.
 #
 cmake_minimum_required(VERSION 3.1.0)
-project(Sound CXX)
-
-set(SOUND_VERSION_MAJOR 0)
-set(SOUND_VERSION_MINOR 2)
-set(SOUND_VERSION_PATCH 0)
-set(SOUND_VERSION_STRING ${SOUND_VERSION_MAJOR}.${SOUND_VERSION_MINOR}.${SOUND_VERSION_PATCH})
+project(Sound LANGUAGES CXX VERSION 0.2.0)
 
 # Set up install directories
 include(GNUInstallDirs)
@@ -56,8 +51,8 @@ else()
 endif()
 
 # Set version of library
-set_target_properties(Sound PROPERTIES VERSION ${SOUND_VERSION_STRING}
-                                       SOVERSION ${SOUND_VERSION_MAJOR})
+set_target_properties(Sound PROPERTIES VERSION ${Sound_VERSION}
+                                       SOVERSION ${Sound_VERSION_MAJOR})
 
 # Install the header files
 file(GLOB SOUND_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/*.h")
@@ -87,7 +82,7 @@ configure_package_config_file(SoundConfig.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/S
                               NO_SET_AND_CHECK_MACRO
                               NO_CHECK_REQUIRED_COMPONENTS_MACRO)
 write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/SoundConfigVersion.cmake
-                                 VERSION ${SOUND_VERSION_STRING}
+                                 VERSION ${Sound_VERSION}
                                  COMPATIBILITY SameMajorVersion)
 
 # Install the configuration files
@@ -97,13 +92,13 @@ install(FILES ${CMAKE_CURRENT_BINARY_DIR}/SoundConfig.cmake ${CMAKE_CURRENT_BINA
 # Packaging
 include(InstallRequiredSystemLibraries)
 
-set(CPACK_PACKAGE_NAME "libsound${SOUND_VERSION_MAJOR}")
+set(CPACK_PACKAGE_NAME "libsound${Sound_VERSION_MAJOR}")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "Sound library")
 set(CPACK_PACKAGE_VENDOR "Benjamin Eikel; Claudius Jaehn; Ralf Petring")
 set(CPACK_PACKAGE_CONTACT "Benjamin Eikel <benjamin@eikel.org>")
-set(CPACK_PACKAGE_VERSION_MAJOR ${SOUND_VERSION_MAJOR})
-set(CPACK_PACKAGE_VERSION_MINOR ${SOUND_VERSION_MINOR})
-set(CPACK_PACKAGE_VERSION_PATCH ${SOUND_VERSION_PATCH})
+set(CPACK_PACKAGE_VERSION_MAJOR ${Sound_VERSION_MAJOR})
+set(CPACK_PACKAGE_VERSION_MINOR ${Sound_VERSION_MINOR})
+set(CPACK_PACKAGE_VERSION_PATCH ${Sound_VERSION_PATCH})
 set(CPACK_PACKAGE_FILE_NAME "libSound")
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")
 set(CPACK_STRIP_FILES ON)
