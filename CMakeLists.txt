@@ -23,6 +23,16 @@ add_library(Sound
 	Sound.cpp
 	Source.cpp
 )
+# Install the header files
+install(FILES
+	Buffer.h
+	Listener.h
+	Sound.h
+	SoundInternals.h
+	Source.h
+	DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Sound
+	COMPONENT headers
+)
 
 # Dependency to OpenAL
 find_package(OpenAL REQUIRED NO_MODULE)
@@ -45,15 +55,12 @@ target_link_libraries(Sound PUBLIC Util)
 set_target_properties(Sound PROPERTIES VERSION ${Sound_VERSION}
                                        SOVERSION ${Sound_VERSION_MAJOR})
 
-# Install the header files
-file(GLOB SOUND_HEADERS "${CMAKE_CURRENT_SOURCE_DIR}/*.h")
-install(FILES ${SOUND_HEADERS} DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Sound COMPONENT headers)
-
 # Install the library
 install(TARGETS Sound EXPORT LibraryExport
 	RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR} COMPONENT runtimelibraries
 	LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT runtimelibraries
 	ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR} COMPONENT developmentlibraries
+	INCLUDES DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
 
 # Set include directories for users of this library
