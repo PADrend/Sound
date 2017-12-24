@@ -67,7 +67,7 @@ install(TARGETS Sound EXPORT LibraryExport
 target_include_directories(Sound
                            INTERFACE
                            "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..>"
-                           "$<INSTALL_INTERFACE:$<INSTALL_PREFIX>/${CMAKE_INSTALL_INCLUDEDIR}>")
+                           "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
 
 # Library export
 #   to use from the build tree
