@@ -13,8 +13,6 @@ project(Sound LANGUAGES CXX VERSION 0.2.0)
 include(GNUInstallDirs)
 set(CMAKE_INSTALL_CMAKECONFIGDIR ${CMAKE_INSTALL_LIBDIR}/cmake/Sound)
 
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
-
 add_library(Sound
 	Buffer.cpp
 	Listener.cpp
@@ -27,10 +25,11 @@ find_package(OpenAL REQUIRED NO_MODULE)
 target_link_libraries(Sound PRIVATE OpenAL::OpenAL)
 
 # Dependency to SDL2
-set(SDL2_BUILDING_LIBRARY ON)
-find_package(SDL2 2.0.0 REQUIRED)
-target_include_directories(Sound PRIVATE ${SDL2_INCLUDE_DIRS})
-target_link_libraries(Sound LINK_PRIVATE ${SDL2_LIBRARIES})
+find_package(SDL2 NO_MODULE)
+if(SDL2_FOUND)
+	target_include_directories(Sound PRIVATE ${SDL2_INCLUDE_DIRS})
+	target_link_libraries(Sound PRIVATE ${SDL2_LIBRARIES})
+endif()
 
 # Dependency to Util
 if(NOT TARGET Util)
