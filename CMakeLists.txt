@@ -35,8 +35,11 @@ install(FILES
 )
 
 # Dependency to OpenAL
-find_package(OpenAL REQUIRED NO_MODULE)
-target_link_libraries(Sound PRIVATE OpenAL::OpenAL)
+find_package(OpenAL REQUIRED)
+if(OPENAL_FOUND)
+	target_include_directories(Sound PRIVATE ${OPENAL_INCLUDE_DIR})
+	target_link_libraries(Sound PRIVATE ${OPENAL_LIBRARY})
+endif()
 
 # Dependency to SDL2
 find_package(SDL2 NO_MODULE)
