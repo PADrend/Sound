@@ -42,7 +42,7 @@ if(OPENAL_FOUND)
 endif()
 
 # Dependency to SDL2
-find_package(SDL2 NO_MODULE)
+find_package(SDL2 REQUIRED)
 if(SDL2_FOUND)
 	target_include_directories(Sound PRIVATE ${SDL2_INCLUDE_DIRS})
 	target_link_libraries(Sound PRIVATE ${SDL2_LIBRARIES})
