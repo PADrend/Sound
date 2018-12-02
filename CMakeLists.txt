@@ -37,6 +37,13 @@ install(FILES
 # Dependency to OpenAL
 find_package(OpenAL REQUIRED)
 if(OPENAL_FOUND)
+	if(WIN32)
+		get_filename_component(AL_DIR ${OPENAL_INCLUDE_DIR} NAME)
+		if(${AL_DIR} STREQUAL "AL" AND EXISTS "${OPENAL_INCLUDE_DIR}/al.h")
+			# remove trailing AL from include path
+			set(OPENAL_INCLUDE_DIR "${OPENAL_INCLUDE_DIR}/..")
+		endif()
+	endif()
 	target_include_directories(Sound PRIVATE ${OPENAL_INCLUDE_DIR})
 	target_link_libraries(Sound PRIVATE ${OPENAL_LIBRARY})
 endif()
