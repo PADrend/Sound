@@ -18,7 +18,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 include(GNUInstallDirs)
 set(CMAKE_INSTALL_CMAKECONFIGDIR ${CMAKE_INSTALL_LIBDIR}/cmake/Sound)
 
-add_library(Sound
+add_library(Sound SHARED
 	Buffer.cpp
 	Listener.cpp
 	Sound.cpp
@@ -64,7 +64,9 @@ target_link_libraries(Sound PUBLIC Util)
 
 # Set version of library
 set_target_properties(Sound PROPERTIES VERSION ${Sound_VERSION}
-                                       SOVERSION ${Sound_VERSION_MAJOR})
+																			 SOVERSION ${Sound_VERSION_MAJOR}
+																			 POSITION_INDEPENDENT_CODE ON
+																			 LIBRARY_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}")
 
 # Install the library
 install(TARGETS Sound EXPORT LibraryExport
@@ -76,9 +78,9 @@ install(TARGETS Sound EXPORT LibraryExport
 
 # Set include directories for users of this library
 target_include_directories(Sound
-                           INTERFACE
-                           "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..>"
-                           "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
+													 INTERFACE
+													 "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/..>"
+													 "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>")
 
 # Library export
 #   to use from the build tree
@@ -90,12 +92,12 @@ install(EXPORT LibraryExport DESTINATION ${CMAKE_INSTALL_CMAKECONFIGDIR} FILE So
 include(CMakePackageConfigHelpers)
 configure_file(SoundConfig.cmake.in ${CMAKE_CURRENT_BINARY_DIR}/SoundConfig.cmake COPYONLY)
 write_basic_package_version_file(${CMAKE_CURRENT_BINARY_DIR}/SoundConfigVersion.cmake
-                                 VERSION ${Sound_VERSION}
-                                 COMPATIBILITY SameMajorVersion)
+																 VERSION ${Sound_VERSION}
+																 COMPATIBILITY SameMajorVersion)
 
 # Install the configuration files
 install(FILES ${CMAKE_CURRENT_BINARY_DIR}/SoundConfig.cmake ${CMAKE_CURRENT_BINARY_DIR}/SoundConfigVersion.cmake
-        DESTINATION ${CMAKE_INSTALL_CMAKECONFIGDIR} COMPONENT developmentlibraries)
+				DESTINATION ${CMAKE_INSTALL_CMAKECONFIGDIR} COMPONENT developmentlibraries)
 
 # Packaging
 include(InstallRequiredSystemLibraries)
