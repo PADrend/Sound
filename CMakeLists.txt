@@ -18,12 +18,19 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 include(GNUInstallDirs)
 set(CMAKE_INSTALL_CMAKECONFIGDIR ${CMAKE_INSTALL_LIBDIR}/cmake/Sound)
 
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+
 add_library(Sound SHARED
 	Buffer.cpp
 	Listener.cpp
 	Sound.cpp
 	Source.cpp
+	Serialization/Serialization.cpp
+	Serialization/StreamerFLAC.cpp
+	Serialization/StreamerMP3.cpp
+	Serialization/StreamerWAV.cpp
 )
+
 # Install the header files
 install(FILES
 	Buffer.h
@@ -35,26 +42,19 @@ install(FILES
 	COMPONENT headers
 )
 
-# Dependency to OpenAL
-find_package(OpenAL REQUIRED)
-if(OPENAL_FOUND)
-	if(WIN32)
-		get_filename_component(AL_DIR ${OPENAL_INCLUDE_DIR} NAME)
-		if(${AL_DIR} STREQUAL "AL" AND EXISTS "${OPENAL_INCLUDE_DIR}/al.h")
-			# remove trailing AL from include path
-			set(OPENAL_INCLUDE_DIR "${OPENAL_INCLUDE_DIR}/..")
-		endif()
-	endif()
-	target_include_directories(Sound PRIVATE ${OPENAL_INCLUDE_DIR})
-	target_link_libraries(Sound PRIVATE ${OPENAL_LIBRARY})
-endif()
+install(FILES
+	AbstractSoundStreamer.h
+	Serialization.h
+	StreamerFLAC.h
+	StreamerMP3.h
+	StreamerWAV.h
+	DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Sound/Serialization
+	COMPONENT headers
+)
 
-# Dependency to SDL2
-find_package(SDL2 REQUIRED)
-if(SDL2_FOUND)
-	target_include_directories(Sound PRIVATE ${SDL2_INCLUDE_DIRS})
-	target_link_libraries(Sound PRIVATE ${SDL2_LIBRARIES})
-endif()
+# Fetch external libraries
+add_subdirectory(extern)
+target_link_libraries(Sound PRIVATE SoundExtern)
 
 # Dependency to Util
 if(NOT TARGET Util)

@@ -3,6 +3,7 @@
 	Copyright (C) 2008-2012 Benjamin Eikel <benjamin@eikel.org>
 	Copyright (C) 2008-2012 Claudius Jähn <claudius@uni-paderborn.de>
 	Copyright (C) 2008-2012 Ralf Petring <ralf@petring.net>
+	Copyright (C) 2019 Sascha Brandt <sascha@brandt.graphics>
 	
 	This library is subject to the terms of the Mozilla Public License, v. 2.0.
 	You should have received a copy of the MPL along with this library; see the 
@@ -13,13 +14,11 @@
 #include "Listener.h"
 #include "Source.h"
 #include "SoundInternals.h"
+#include "Serialization/StreamerFLAC.h"
+#include "Serialization/StreamerMP3.h"
+#include "Serialization/StreamerWAV.h"
 
 #include <Util/Macros.h>
-COMPILER_WARN_PUSH
-COMPILER_WARN_OFF_CLANG(-W#warnings)
-COMPILER_WARN_OFF_GCC(-Wswitch-default)
-#include <SDL.h>
-COMPILER_WARN_POP
 #include <Util/References.h>
 
 #include <algorithm>
@@ -87,6 +86,10 @@ bool initSoundSystem(){
 	if(myContext != nullptr) { // already initialized?
 		return true;
 	}
+	
+	StreamerFLAC::init();
+	StreamerMP3::init();
+	StreamerWAV::init();
 
 	// Open the default device
 	myDevice = alcOpenDevice(nullptr);
@@ -177,46 +180,6 @@ Buffer * createSilence(unsigned int freq,unsigned int size) {
 
 	const std::vector<uint8_t> data(size, 128);
 	b->setData(AL_FORMAT_MONO8, data.data(), data.size(), freq);
-
-	return checkErrorStatus(__FILE__, __LINE__) ? b.detachAndDecrease() : nullptr;
-}
-
-//! [static] factory
-Buffer * loadWAV(const std::string & filename) {
-	Util::Reference<Buffer> b(Buffer::create());
-	if(b.isNull())
-		return nullptr;
-
-	SDL_AudioSpec wav_spec;
-	Uint32 wav_length;
-	Uint8 *wav_buffer;
-
-	if ( SDL_LoadWAV(filename.c_str(), &wav_spec, &wav_buffer, &wav_length) == nullptr ) {
-		WARN("Could not open : "+ filename+ std::string( SDL_GetError()) );
-		return nullptr;
-	}
-
-	unsigned int format=0;
-	unsigned int freq = static_cast<unsigned int>(wav_spec.freq);
-	if (wav_spec.format == AUDIO_U8 ) {
-		if (wav_spec.channels==1)
-			format=AL_FORMAT_MONO8;
-		else
-			format=AL_FORMAT_STEREO8;
-	} else if (wav_spec.format == AUDIO_S16SYS ) {
-		if (wav_spec.channels==1)
-			format=AL_FORMAT_MONO16;
-		else
-			format=AL_FORMAT_STEREO16;
-	}
-	if (format==0) {
-		WARN("Uninplemented WAV-format. Please add conversion routine ;).");
-		return nullptr;
-	} else
-		b->setData(format,wav_buffer,wav_length,freq);
-
-//    b->setData(AL_FORMAT_MONO8,noise,size,freq);
-	SDL_FreeWAV(wav_buffer);
 
 	return checkErrorStatus(__FILE__, __LINE__) ? b.detachAndDecrease() : nullptr;
 }
