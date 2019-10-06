@@ -56,12 +56,13 @@ else()
 		set(ALSOFT_AMBDEC_PRESETS OFF CACHE INTERNAL "" FORCE)
 		set(ALSOFT_INSTALL OFF CACHE INTERNAL "" FORCE)
 		set(ALSOFT_BACKEND_WAVE OFF CACHE INTERNAL "" FORCE)
-		set(LIBTYPE STATIC)
+		set(LIBTYPE "STATIC")
 		add_subdirectory(${openal_SOURCE_DIR} ${openal_BINARY_DIR} EXCLUDE_FROM_ALL)
 	endif()
 	
 	target_compile_definitions(SoundExtern INTERFACE UTIL_HAVE_LIB_OPENAL)
 	target_link_libraries(SoundExtern INTERFACE OpenAL)
+	target_include_directories(SoundExtern INTERFACE ${openal_SOURCE_DIR}/include)
   set_target_properties(OpenAL PROPERTIES 
     BUILD_SHARED_LIBS OFF
     POSITION_INDEPENDENT_CODE ON
