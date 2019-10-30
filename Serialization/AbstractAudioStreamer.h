@@ -22,7 +22,7 @@ class Buffer;
 /**
  * Interface for classes that are capable of converting between audio data and streams.
  */
-class AbstractAudioStreamer : public Util::AbstractStreamer {
+class AbstractAudioStreamer : public Util::Serialization::AbstractStreamer {
 	public:
 		virtual ~AbstractAudioStreamer() {
 		}
