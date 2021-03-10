@@ -52,6 +52,14 @@ install(FILES
 	COMPONENT headers
 )
 
+if(MSVC)
+	target_compile_definitions(Sound PRIVATE "SOUNDAPI=__declspec(dllexport)")
+	target_compile_definitions(Sound INTERFACE "SOUNDAPI=__declspec(dllimport)")
+else()
+	target_compile_definitions(Sound PRIVATE "SOUNDAPI=")
+	target_compile_definitions(Sound INTERFACE "SOUNDAPI=")
+endif()
+
 # Fetch external libraries
 add_subdirectory(extern)
 target_link_libraries(Sound PRIVATE SoundExtern)

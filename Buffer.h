@@ -22,21 +22,21 @@ namespace Sound {
  **/
 class Buffer : public Util::ReferenceCounter<Buffer> {
 	public:
-		static Buffer * create();
-		~Buffer();
+		SOUNDAPI static Buffer * create();
+		SOUNDAPI ~Buffer();
 
 		uint32_t getBufferId()const		{	return bufferId;	}
 
-		std::string toString()const;
+		SOUNDAPI std::string toString()const;
 
 		// ---
-		int getAttribute_i(unsigned int attrib)const;
-		void setData(unsigned int format,const void*buffer,unsigned int byte,unsigned int freq);
+		SOUNDAPI int getAttribute_i(unsigned int attrib)const;
+		SOUNDAPI void setData(unsigned int format,const void*buffer,unsigned int byte,unsigned int freq);
 
-		int getFrequency()const;
-		int getBits()const;
-		int getChannels()const;
-		int getDataSize()const;
+		SOUNDAPI int getFrequency()const;
+		SOUNDAPI int getBits()const;
+		SOUNDAPI int getChannels()const;
+		SOUNDAPI int getDataSize()const;
 
 	private:
 		uint32_t bufferId;

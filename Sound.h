@@ -19,18 +19,18 @@ class Buffer;
 class Listener;
 class Source;
 
-bool initSoundSystem();
-void shutDownSoundSystem();
+SOUNDAPI bool initSoundSystem();
+SOUNDAPI void shutDownSoundSystem();
 
-bool checkErrorStatus(const char * file, int line, const std::string & msg = "");
+SOUNDAPI bool checkErrorStatus(const char * file, int line, const std::string & msg = "");
 
-std::string getDeviceName();
+SOUNDAPI std::string getDeviceName();
 
-Listener * getListener();
-Source * createSource();
-Buffer * createNoise(unsigned int freq,unsigned int size);
-Buffer * createRectangleSound(unsigned int width, unsigned int freq,unsigned int size);
-Buffer * createSilence(unsigned int freq,unsigned int size);
+SOUNDAPI Listener * getListener();
+SOUNDAPI Source * createSource();
+SOUNDAPI Buffer * createNoise(unsigned int freq,unsigned int size);
+SOUNDAPI Buffer * createRectangleSound(unsigned int width, unsigned int freq,unsigned int size);
+SOUNDAPI Buffer * createSilence(unsigned int freq,unsigned int size);
 
 }
 

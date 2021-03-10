@@ -22,9 +22,9 @@ class StreamerWAV : public AbstractAudioStreamer {
 		StreamerWAV() : AbstractAudioStreamer() { }
 		virtual ~StreamerWAV() = default;
 
-		Util::Reference<Buffer> loadAudio(std::istream & input) override;
+		SOUNDAPI Util::Reference<Buffer> loadAudio(std::istream & input) override;
 
-		static bool init();
+		SOUNDAPI static bool init();
 };
 }
 

@@ -147,7 +147,7 @@ Buffer * createNoise(unsigned int freq, unsigned int size) {
 		j = (j * 1234393 + i) % 0xffffff;
 		noise.push_back(static_cast<uint8_t>(j) % 256);
 	}
-	b->setData(AL_FORMAT_MONO8, noise.data(), noise.size(),freq);
+	b->setData(AL_FORMAT_MONO8, noise.data(), static_cast<uint32_t>(noise.size()),freq);
 
 	return checkErrorStatus(__FILE__, __LINE__) ? b.detachAndDecrease() : nullptr;
 }
@@ -167,7 +167,7 @@ Buffer * createRectangleSound(unsigned int width, unsigned int freq, unsigned in
 		}
 		noise.push_back(value);
 	}
-	b->setData(AL_FORMAT_MONO8, noise.data(), noise.size(), freq);
+	b->setData(AL_FORMAT_MONO8, noise.data(), static_cast<uint32_t>(noise.size()), freq);
 
 	return checkErrorStatus(__FILE__, __LINE__) ? b.detachAndDecrease() : nullptr;
 }
@@ -179,7 +179,7 @@ Buffer * createSilence(unsigned int freq,unsigned int size) {
 		return nullptr;
 
 	const std::vector<uint8_t> data(size, 128);
-	b->setData(AL_FORMAT_MONO8, data.data(), data.size(), freq);
+	b->setData(AL_FORMAT_MONO8, data.data(), static_cast<uint32_t>(data.size()), freq);
 
 	return checkErrorStatus(__FILE__, __LINE__) ? b.detachAndDecrease() : nullptr;
 }

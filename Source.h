@@ -26,58 +26,58 @@ namespace Sound {
  **/
 class Source : public Util::ReferenceCounter<Source> {
 	public:
-		static Source * create();
-		~Source();
+		SOUNDAPI static Source * create();
+		SOUNDAPI ~Source();
 
 		uint32_t getSourceId()const				{	return sourceId;	}
 
 
-		void enqueueBuffer(Buffer * buffer);
-		void dequeueBuffers(int num);
+		SOUNDAPI void enqueueBuffer(Buffer * buffer);
+		SOUNDAPI void dequeueBuffers(int num);
 
-		void setAttribute_i(unsigned int attrib,int value);
-		void setAttribute_f(unsigned int attrib,float value);
-		void setAttribute_3f(unsigned int attrib,float v1,float v2,float v3);
-		void getAttribute_3f(unsigned int attrib,float & v1,float & v2,float & v3);
-		int getAttribute_i(unsigned int attrib)const;
-
-		// ---
-		void play();
-		void stop();
-		void pause();
-		void rewind();
+		SOUNDAPI void setAttribute_i(unsigned int attrib,int value);
+		SOUNDAPI void setAttribute_f(unsigned int attrib,float value);
+		SOUNDAPI void setAttribute_3f(unsigned int attrib,float v1,float v2,float v3);
+		SOUNDAPI void getAttribute_3f(unsigned int attrib,float & v1,float & v2,float & v3);
+		SOUNDAPI int getAttribute_i(unsigned int attrib)const;
 
 		// ---
+		SOUNDAPI void play();
+		SOUNDAPI void stop();
+		SOUNDAPI void pause();
+		SOUNDAPI void rewind();
 
-		void setPitch(float f);
-		void setGain(float f);
-		void setMinGain(float f);
-		void setMaxGain(float f);
-		void setRolloffFactor(float f);
-		void setConeOuterGain(float f);
-		void setConeInnerAngle(float f);
-		void setConeOuterAngle(float f);
-		void setReferenceDistance(float f);
+		// ---
 
-		void setPosition(float x,float y,float z);
-		void setVelocity(float x,float y,float z);
-		void setDirection(float x,float y,float z);
+		SOUNDAPI void setPitch(float f);
+		SOUNDAPI void setGain(float f);
+		SOUNDAPI void setMinGain(float f);
+		SOUNDAPI void setMaxGain(float f);
+		SOUNDAPI void setRolloffFactor(float f);
+		SOUNDAPI void setConeOuterGain(float f);
+		SOUNDAPI void setConeInnerAngle(float f);
+		SOUNDAPI void setConeOuterAngle(float f);
+		SOUNDAPI void setReferenceDistance(float f);
 
-		void setSourceIsRelative(bool b);
-		void setLooping(bool b);
+		SOUNDAPI void setPosition(float x,float y,float z);
+		SOUNDAPI void setVelocity(float x,float y,float z);
+		SOUNDAPI void setDirection(float x,float y,float z);
 
-		bool isLooping()const;
-		bool isPaused()const;
-		bool isPlaying()const;
-		bool isStopped()const;
-		bool isSourceRelative()const;
+		SOUNDAPI void setSourceIsRelative(bool b);
+		SOUNDAPI void setLooping(bool b);
 
-		int getNumBuffersQueued()const;
-		int getNumBuffersProcessed()const;
-		int getSourceState()const;
-		void getDirection(float &x,float &y,float& z);
-		void getPosition(float &x,float &y,float& z);
-		void getVelocity(float &x,float &y,float& z);
+		SOUNDAPI bool isLooping()const;
+		SOUNDAPI bool isPaused()const;
+		SOUNDAPI bool isPlaying()const;
+		SOUNDAPI bool isStopped()const;
+		SOUNDAPI bool isSourceRelative()const;
+
+		SOUNDAPI int getNumBuffersQueued()const;
+		SOUNDAPI int getNumBuffersProcessed()const;
+		SOUNDAPI int getSourceState()const;
+		SOUNDAPI void getDirection(float &x,float &y,float& z);
+		SOUNDAPI void getPosition(float &x,float &y,float& z);
+		SOUNDAPI void getVelocity(float &x,float &y,float& z);
 
 	private:
 		Source(uint32_t _sourceId);

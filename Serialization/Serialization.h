@@ -31,7 +31,7 @@ namespace Serialization {
  * @param file Address to the file containing the audio data.
  * @return A single audio file.
  */
-Util::Reference<Buffer> loadAudio(const Util::FileName & url);
+SOUNDAPI Util::Reference<Buffer> loadAudio(const Util::FileName & url);
 
 /**
  * Create a audio buffer from the given data.
@@ -41,7 +41,7 @@ Util::Reference<Buffer> loadAudio(const Util::FileName & url);
  * @param data Bitmap data.
  * @return A single bitmap.
  */
-Util::Reference<Buffer> loadAudio(const std::string & extension, const std::string & data);
+SOUNDAPI Util::Reference<Buffer> loadAudio(const std::string & extension, const std::string & data);
 
 /**
  * Register a new streamer for the given file extension that supports loading of bitmaps.
@@ -51,7 +51,7 @@ Util::Reference<Buffer> loadAudio(const std::string & extension, const std::stri
  * @retval @c true if the streamer was registered successfully.
  * @retval @c false if another streamer for the extension already existed.
  */
-bool registerAudioLoader(const std::string & extension, std::function<AbstractAudioStreamer * ()> loaderCreator);
+SOUNDAPI bool registerAudioLoader(const std::string & extension, std::function<AbstractAudioStreamer * ()> loaderCreator);
 
 } /* Serialization */
 } /* Sound */

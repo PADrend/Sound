@@ -74,7 +74,7 @@ Util::Reference<Buffer> StreamerMP3::loadAudio(std::istream & input) {
 	}
 	
 	size_t mp3_size = frameCount * config.outputChannels * sizeof(int16_t);	
-	b->setData((config.outputChannels==1) ? AL_FORMAT_MONO16 : AL_FORMAT_STEREO16, data, mp3_size, config.outputSampleRate);
+	b->setData((config.outputChannels==1) ? AL_FORMAT_MONO16 : AL_FORMAT_STEREO16, data, static_cast<uint32_t>(mp3_size), config.outputSampleRate);
 	
 	drmp3_free(data);
 	return b;

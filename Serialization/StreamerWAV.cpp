@@ -74,7 +74,7 @@ Util::Reference<Buffer> StreamerWAV::loadAudio(std::istream & input) {
 	std::vector<int16_t> wav_buffer(wav.totalPCMFrameCount * wav.channels);
 	drwav_uint64 read_frames = drwav_read_pcm_frames_s16(&wav, wav.totalPCMFrameCount, wav_buffer.data());
 	size_t wav_length = read_frames * wav.channels * sizeof(int16_t);	
-	b->setData((wav.channels==1) ? AL_FORMAT_MONO16 : AL_FORMAT_STEREO16, wav_buffer.data(), wav_length, wav.sampleRate);
+	b->setData((wav.channels==1) ? AL_FORMAT_MONO16 : AL_FORMAT_STEREO16, wav_buffer.data(), static_cast<uint32_t>(wav_length), wav.sampleRate);
 	
 	drwav_uninit(&wav);
 	return b;

@@ -76,7 +76,7 @@ Util::Reference<Buffer> StreamerFLAC::loadAudio(std::istream & input) {
 	}
 	
 	size_t size = frameCount * channels * sizeof(int16_t);	
-	b->setData((channels==1) ? AL_FORMAT_MONO16 : AL_FORMAT_STEREO16, data, size, sampleRate);
+	b->setData((channels==1) ? AL_FORMAT_MONO16 : AL_FORMAT_STEREO16, data, static_cast<uint32_t>(size), sampleRate);
 	
 	DRFLAC_FREE(data);
 	return b;

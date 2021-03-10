@@ -22,9 +22,9 @@ class StreamerFLAC : public AbstractAudioStreamer {
 		StreamerFLAC() : AbstractAudioStreamer() { }
 		virtual ~StreamerFLAC() = default;
 
-		Util::Reference<Buffer> loadAudio(std::istream & input) override;
+		SOUNDAPI Util::Reference<Buffer> loadAudio(std::istream & input) override;
 
-		static bool init();
+		SOUNDAPI static bool init();
 };
 }
 

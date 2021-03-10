@@ -18,22 +18,22 @@ namespace Sound {
  **/
 class Listener{
 	public:
-		static Listener * getInstance();
+		SOUNDAPI static Listener * getInstance();
 
-		int getDistanceModel();
-		float getDopplerFactor();
-		float getGain();
-		void getOrientation(float & dirX,float & dirY,float & dirZ,float & upX,float & upY,float & upZ);
-		void getPosition(float & x,float & y,float & z);
-		float getSpeedOfSound();
-		void getVelocity(float & x,float & y,float & z);
-		void setDistanceModel(int modelType);
-		void setDopplerFactor(float f);
-		void setGain(float f);
-		void setOrientation(float dirX,float dirY,float dirZ,float upX,float upY,float upZ);
-		void setPosition(float x,float y,float z);
-		void setSpeedOfSound(float f);
-		void setVelocity(float x,float y,float z);
+		SOUNDAPI int getDistanceModel();
+		SOUNDAPI float getDopplerFactor();
+		SOUNDAPI float getGain();
+		SOUNDAPI void getOrientation(float & dirX,float & dirY,float & dirZ,float & upX,float & upY,float & upZ);
+		SOUNDAPI void getPosition(float & x,float & y,float & z);
+		SOUNDAPI float getSpeedOfSound();
+		SOUNDAPI void getVelocity(float & x,float & y,float & z);
+		SOUNDAPI void setDistanceModel(int modelType);
+		SOUNDAPI void setDopplerFactor(float f);
+		SOUNDAPI void setGain(float f);
+		SOUNDAPI void setOrientation(float dirX,float dirY,float dirZ,float upX,float upY,float upZ);
+		SOUNDAPI void setPosition(float x,float y,float z);
+		SOUNDAPI void setSpeedOfSound(float f);
+		SOUNDAPI void setVelocity(float x,float y,float z);
 
 	private:
 		Listener();

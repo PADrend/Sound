@@ -22,9 +22,9 @@ class StreamerMP3 : public AbstractAudioStreamer {
 		StreamerMP3() : AbstractAudioStreamer() { }
 		virtual ~StreamerMP3() = default;
 
-		Util::Reference<Buffer> loadAudio(std::istream & input) override;
+		SOUNDAPI Util::Reference<Buffer> loadAudio(std::istream & input) override;
 
-		static bool init();
+		SOUNDAPI static bool init();
 };
 }
 
