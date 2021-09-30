@@ -43,11 +43,11 @@ install(FILES
 )
 
 install(FILES
-	AbstractSoundStreamer.h
-	Serialization.h
-	StreamerFLAC.h
-	StreamerMP3.h
-	StreamerWAV.h
+	Serialization/AbstractAudioStreamer.h
+	Serialization/Serialization.h
+	Serialization/StreamerFLAC.h
+	Serialization/StreamerMP3.h
+	Serialization/StreamerWAV.h
 	DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}/Sound/Serialization
 	COMPONENT headers
 )
